@@ -21,9 +21,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_18_134052) do
   end
 
   create_table "rooms", charset: "utf8mb3", force: :cascade do |t|
-    t.string "name", null: false
+    t.bigint "room_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_rooms_on_room_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
@@ -41,4 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_18_134052) do
 
   add_foreign_key "room_users", "rooms"
   add_foreign_key "room_users", "users"
+  add_foreign_key "rooms", "rooms"
+  add_foreign_key "rooms", "users"
 end
